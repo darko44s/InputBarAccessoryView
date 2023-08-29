@@ -46,6 +46,12 @@ public extension UITextView {
         let location = wordRange.lowerBound.utf16Offset(in: leadingText)
         let length = wordRange.upperBound.utf16Offset(in: word) - location
         let range = NSRange(location: location, length: length)
+
+        for char in word.unicodeScalars {
+            if delimiterSet.contains(char) {
+                return nil
+            }
+        }
         
         return (String(prefix), String(word), range)
     }
